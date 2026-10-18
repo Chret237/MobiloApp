@@ -15,4 +15,7 @@
 	<ShellContent Route="home"       ContentTemplate="{DataTemplate pages:HomePage}" />
 	<ShellContent Route="search"     ContentTemplate="{DataTemplate pages:SearchPage}" />
 	<ShellContent Route="details"    ContentTemplate="{DataTemplate pages:DetailsPage}" />
+	<ShellContent Route="booking"    ContentTemplate="{DataTemplate pages:BookingPage}" />
+	<ShellContent Route="payment"    ContentTemplate="{DataTemplate pages:PaymentPage}" />
+	<ShellContent Route="success"    ContentTemplate="{DataTemplate pages:SuccessPage}" />
 </Shell>

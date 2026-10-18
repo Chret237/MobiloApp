@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<c:MobiloPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:c="clr-namespace:MobiloApp.Controls"
+              x:Class="MobiloApp.Pages.SuccessPage">
+	<Grid>
+		<!-- decorative confetti bars -->
+		<BoxView WidthRequest="12" HeightRequest="90" Color="{StaticResource MintBright}" Opacity="0.4" Rotation="35"
+		         HorizontalOptions="Start" VerticalOptions="Start" Margin="35,170,0,0" InputTransparent="True" />
+		<BoxView WidthRequest="12" HeightRequest="90" Color="{StaticResource Gold}" Opacity="0.4" Rotation="-30"
+		         HorizontalOptions="End" VerticalOptions="Start" Margin="0,250,30,0" InputTransparent="True" />
+
+		<Grid RowDefinitions="Auto,*" Padding="24,28,24,35">
+			<c:Logo />
+			<VerticalStackLayout Grid.Row="1" VerticalOptions="Center" HorizontalOptions="Center" WidthRequest="340" Spacing="0">
+				<Border WidthRequest="92" HeightRequest="92" StrokeShape="Ellipse" StrokeThickness="10"
+				        Stroke="{StaticResource Mint}" BackgroundColor="{StaticResource Forest}" Margin="0,0,0,25">
+					<c:IconView Icon="check" IconSize="42" Color="White" />
+				</Border>
+				<Label Text="Booking confirmed" Style="{StaticResource Eyebrow}" HorizontalOptions="Center" />
+				<Label Margin="0,10,0,15" HorizontalTextAlignment="Center" FontFamily="ManropeBold" FontSize="38"
+				       CharacterSpacing="-2.3" LineHeight="1.05" Text="You’re all set,&#10;Alex." />
+				<Label HorizontalTextAlignment="Center" FontSize="13" LineHeight="1.4" TextColor="{StaticResource InkSoft}"
+				       Text="Your Range Rover Velar is reserved. We’ve sent the details to your email." />
+
+				<Border Margin="0,25,0,20" Padding="17" StrokeThickness="1" Stroke="{StaticResource Line}" BackgroundColor="White" StrokeShape="RoundRectangle 18">
+					<VerticalStackLayout Spacing="6">
+						<Label Text="BOOKING REFERENCE" FontSize="9" TextColor="{StaticResource InkSoft}" />
+						<Label Text="ABC12345" FontFamily="ManropeBold" FontSize="25" CharacterSpacing="2" />
+						<Label Text="May 16–19 · Downtown Austin" FontSize="10" TextColor="{StaticResource InkSoft}" />
+					</VerticalStackLayout>
+				</Border>
+
+				<c:PrimaryButton Text="View booking" Icon="receipt" Clicked="OnViewBooking" />
+				<Label Text="Back to home" FontFamily="DMSansBold" FontSize="12" TextColor="{StaticResource Forest}"
+				       HorizontalOptions="Center" Margin="0,16,0,0">
+					<Label.GestureRecognizers><TapGestureRecognizer Tapped="OnHome" /></Label.GestureRecognizers>
+				</Label>
+			</VerticalStackLayout>
+		</Grid>
+	</Grid>
+</c:MobiloPage>

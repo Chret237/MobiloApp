@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<c:MobiloPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:c="clr-namespace:MobiloApp.Controls"
+              x:Class="MobiloApp.Pages.PaymentPage">
+	<Grid RowDefinitions="Auto,*,Auto">
+		<c:AppHeader Grid.Row="0" Subtitle="Step 2 of 2" Title="Secure payment" ShowBack="True" BackClicked="OnBack" />
+
+		<ScrollView Grid.Row="1" VerticalScrollBarVisibility="Never">
+			<VerticalStackLayout Padding="22,5,22,25" Spacing="13">
+
+				<Border BackgroundColor="{StaticResource Mint}" StrokeThickness="0" StrokeShape="RoundRectangle 12" Padding="15,13">
+					<Grid ColumnDefinitions="Auto,*" ColumnSpacing="10">
+						<c:IconView Icon="lock" Color="{StaticResource Forest}" />
+						<VerticalStackLayout Grid.Column="1">
+							<Label Text="Your payment is protected" FontFamily="DMSansBold" FontSize="11" TextColor="{StaticResource Forest}" />
+							<Label Text="Encrypted and securely processed" FontSize="9" TextColor="{StaticResource Forest}" Opacity="0.7" />
+						</VerticalStackLayout>
+					</Grid>
+				</Border>
+
+				<!-- payment methods (built in code) -->
+				<Border Padding="18" StrokeThickness="1" Stroke="{StaticResource Line}" BackgroundColor="White" StrokeShape="RoundRectangle 18">
+					<VerticalStackLayout Spacing="8">
+						<Label Text="Payment method" FontFamily="ManropeBold" FontSize="16" Margin="0,0,0,5" />
+						<VerticalStackLayout x:Name="Methods" Spacing="8" />
+					</VerticalStackLayout>
+				</Border>
+
+				<!-- card form -->
+				<Border x:Name="CardForm" Padding="18" StrokeThickness="1" Stroke="{StaticResource Line}" BackgroundColor="White" StrokeShape="RoundRectangle 18">
+					<VerticalStackLayout Spacing="14">
+						<c:Field Label="Card number" Placeholder="1234 5678 9012 3456" Icon="card" KeyboardType="numeric" />
+						<Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+							<c:Field Label="Expiry" Placeholder="MM / YY" KeyboardType="numeric" />
+							<c:Field Grid.Column="1" Label="CVC" Placeholder="123" Icon="lock" KeyboardType="numeric" />
+						</Grid>
+					</VerticalStackLayout>
+				</Border>
+
+				<!-- summary -->
+				<Border Padding="18" StrokeThickness="1" Stroke="{StaticResource Line}" BackgroundColor="White" StrokeShape="RoundRectangle 18">
+					<VerticalStackLayout Spacing="0">
+						<Grid ColumnDefinitions="*,Auto" Margin="0,0,0,16">
+							<Label Text="Booking summary" FontFamily="ManropeBold" FontSize="16" />
+							<Label Grid.Column="1" Text="Review" Style="{StaticResource LinkLabel}" FontSize="11" VerticalOptions="Center">
+								<Label.GestureRecognizers><TapGestureRecognizer Tapped="OnReview" /></Label.GestureRecognizers>
+							</Label>
+						</Grid>
+						<Grid ColumnDefinitions="*,Auto">
+							<Label Text="Range Rover Velar" FontSize="11" TextColor="{StaticResource InkSoft}" />
+							<Label Grid.Column="1" Text="3 days" FontSize="11" TextColor="{StaticResource InkSoft}" />
+						</Grid>
+						<BoxView HeightRequest="1" Color="{StaticResource Line}" Margin="0,14,0,15" />
+						<Grid ColumnDefinitions="*,Auto">
+							<Label Text="Total due now" FontSize="13" VerticalOptions="Center" />
+							<Label x:Name="TotalLabel" Grid.Column="1" FontFamily="ManropeBold" FontSize="19" />
+						</Grid>
+					</VerticalStackLayout>
+				</Border>
+			</VerticalStackLayout>
+		</ScrollView>
+
+		<VerticalStackLayout Grid.Row="2" BackgroundColor="#F5FFFFFF" Spacing="0">
+			<BoxView HeightRequest="1" Color="{StaticResource Line}" />
+			<VerticalStackLayout Padding="22,13,22,18" Spacing="8">
+				<HorizontalStackLayout Spacing="5" HorizontalOptions="Center">
+					<c:IconView Icon="shield" IconSize="16" Color="{StaticResource InkSoft}" />
+					<Label Text="Secure checkout" FontSize="9" TextColor="{StaticResource InkSoft}" VerticalOptions="Center" />
+				</HorizontalStackLayout>
+				<c:PrimaryButton x:Name="PayButton" Icon="lock" Clicked="OnPay" />
+			</VerticalStackLayout>
+		</VerticalStackLayout>
+	</Grid>
+</c:MobiloPage>

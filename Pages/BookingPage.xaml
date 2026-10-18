@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<c:MobiloPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:c="clr-namespace:MobiloApp.Controls"
+              x:Class="MobiloApp.Pages.BookingPage">
+	<Grid RowDefinitions="Auto,*,Auto">
+		<c:AppHeader Grid.Row="0" Subtitle="Step 1 of 2" Title="Review your booking" ShowBack="True" BackClicked="OnBack" />
+
+		<ScrollView Grid.Row="1" VerticalScrollBarVisibility="Never">
+			<VerticalStackLayout Padding="22,5,22,25" Spacing="13">
+
+				<!-- mini vehicle -->
+				<Border Padding="10" StrokeThickness="1" Stroke="{StaticResource Line}" BackgroundColor="White" StrokeShape="RoundRectangle 18">
+					<Grid ColumnDefinitions="105,*" ColumnSpacing="14">
+						<Border StrokeShape="RoundRectangle 12" StrokeThickness="0" HeightRequest="82">
+							<Image x:Name="CarImage" Aspect="AspectFill" />
+						</Border>
+						<VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="6">
+							<c:Badge Text="Luxury SUV" Mint="True" />
+							<Label Text="Range Rover Velar" FontFamily="ManropeBold" FontSize="15" />
+							<c:RatingView Value="4.9" Count="128" />
+						</VerticalStackLayout>
+					</Grid>
+				</Border>
+
+				<!-- trip details -->
+				<Border Padding="18" StrokeThickness="1" Stroke="{StaticResource Line}" BackgroundColor="White" StrokeShape="RoundRectangle 18">
+					<VerticalStackLayout Spacing="16">
+						<Grid ColumnDefinitions="*,Auto">
+							<Label Text="Trip details" FontFamily="ManropeBold" FontSize="16" />
+							<Label Grid.Column="1" Text="Edit" Style="{StaticResource LinkLabel}" FontSize="11" />
+						</Grid>
+						<Grid ColumnDefinitions="12,*" ColumnSpacing="12">
+							<Grid RowDefinitions="Auto,*,Auto" HorizontalOptions="Center" Padding="0,5">
+								<Ellipse WidthRequest="12" HeightRequest="12" Fill="{StaticResource Forest}" Stroke="{StaticResource Mint}" StrokeThickness="3" />
+								<BoxView Grid.Row="1" WidthRequest="1" Color="{StaticResource LineDark}" Margin="0,3" HorizontalOptions="Center" />
+								<Ellipse Grid.Row="2" WidthRequest="12" HeightRequest="12" Fill="{StaticResource Gold}" Stroke="{StaticResource Mint}" StrokeThickness="3" />
+							</Grid>
+							<VerticalStackLayout Grid.Column="1" Spacing="3">
+								<Label Text="PICKUP" FontSize="9" TextColor="{StaticResource InkSoft}" />
+								<Label Text="Fri, May 16 · 10:00 AM" FontFamily="DMSansBold" FontSize="12" />
+								<Label Text="Downtown Austin" FontSize="10" TextColor="{StaticResource InkSoft}" Margin="0,0,0,13" />
+								<Label Text="RETURN" FontSize="9" TextColor="{StaticResource InkSoft}" />
+								<Label Text="Mon, May 19 · 10:00 AM" FontFamily="DMSansBold" FontSize="12" />
+								<Label Text="Downtown Austin" FontSize="10" TextColor="{StaticResource InkSoft}" />
+							</VerticalStackLayout>
+						</Grid>
+					</VerticalStackLayout>
+				</Border>
+
+				<!-- insurance -->
+				<Border Padding="18" StrokeThickness="1" Stroke="{StaticResource Line}" BackgroundColor="White" StrokeShape="RoundRectangle 18">
+					<Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
+						<Border WidthRequest="42" HeightRequest="42" StrokeShape="RoundRectangle 11" StrokeThickness="0" BackgroundColor="{StaticResource Mint}">
+							<c:IconView Icon="shield" Color="{StaticResource Forest}" />
+						</Border>
+						<VerticalStackLayout Grid.Column="1" Spacing="3">
+							<Label Text="Drive protected" FontFamily="ManropeBold" FontSize="14" />
+							<Label Text="Reduced liability and roadside assistance." FontSize="10" LineHeight="1.3" TextColor="{StaticResource InkSoft}" />
+							<Label Text="+$44" FontFamily="DMSansBold" FontSize="11" TextColor="{StaticResource Forest}" />
+						</VerticalStackLayout>
+						<Switch x:Name="InsuranceSwitch" Grid.Column="2" IsToggled="True" OnColor="{StaticResource Forest}"
+						        ThumbColor="White" VerticalOptions="Center" Toggled="OnInsuranceToggled" />
+					</Grid>
+				</Border>
+
+				<!-- price breakdown -->
+				<Border Padding="18" StrokeThickness="1" Stroke="{StaticResource Line}" BackgroundColor="White" StrokeShape="RoundRectangle 18">
+					<VerticalStackLayout Spacing="10">
+						<Grid ColumnDefinitions="*,Auto" Margin="0,0,0,6">
+							<Label Text="Price breakdown" FontFamily="ManropeBold" FontSize="16" VerticalOptions="Center" />
+							<c:Badge Grid.Column="1" Text="No hidden fees" Mint="True" BadgeFontSize="8" />
+						</Grid>
+						<Grid ColumnDefinitions="*,Auto">
+							<Label Text="$128 × 3 days" FontSize="11" TextColor="{StaticResource InkSoft}" />
+							<Label Grid.Column="1" Text="$384" FontFamily="DMSansBold" FontSize="11" />
+						</Grid>
+						<Grid x:Name="ProtectionRow" ColumnDefinitions="*,Auto">
+							<Label Text="Protection plan" FontSize="11" TextColor="{StaticResource InkSoft}" />
+							<Label Grid.Column="1" Text="$44" FontFamily="DMSansBold" FontSize="11" />
+						</Grid>
+						<Grid ColumnDefinitions="*,Auto">
+							<Label Text="Taxes &amp; service fees" FontSize="11" TextColor="{StaticResource InkSoft}" />
+							<Label Grid.Column="1" Text="$54" FontFamily="DMSansBold" FontSize="11" />
+						</Grid>
+						<Grid ColumnDefinitions="*,Auto">
+							<Label Text="Refundable deposit" FontSize="11" TextColor="{StaticResource InkSoft}" />
+							<Label Grid.Column="1" Text="$44" FontFamily="DMSansBold" FontSize="11" />
+						</Grid>
+						<BoxView HeightRequest="1" Color="{StaticResource Line}" Margin="0,4,0,0" />
+						<Grid ColumnDefinitions="*,Auto">
+							<Label Text="Total (USD)" FontSize="13" VerticalOptions="Center" />
+							<Label x:Name="TotalLabel" Grid.Column="1" FontFamily="ManropeBold" FontSize="19" />
+						</Grid>
+					</VerticalStackLayout>
+				</Border>
+			</VerticalStackLayout>
+		</ScrollView>
+
+		<!-- footer -->
+		<VerticalStackLayout Grid.Row="2" BackgroundColor="#F5FFFFFF" Spacing="0">
+			<BoxView HeightRequest="1" Color="{StaticResource Line}" />
+			<Grid ColumnDefinitions="Auto,*" ColumnSpacing="16" Padding="22,13,22,18">
+				<VerticalStackLayout MinimumWidthRequest="65" VerticalOptions="Center">
+					<Label Text="Total" FontSize="9" TextColor="{StaticResource InkSoft}" />
+					<Label x:Name="FooterTotal" FontFamily="ManropeBold" FontSize="21" />
+				</VerticalStackLayout>
+				<c:PrimaryButton Grid.Column="1" Text="Continue to payment" Icon="arrow" Clicked="OnContinue" />
+			</Grid>
+		</VerticalStackLayout>
+	</Grid>
+</c:MobiloPage>
