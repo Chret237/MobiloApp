@@ -1,0 +1,15 @@
+# Build output
+bin/
+obj/
+# Native crash/replay diagnostics
+*.log
+# Accidental empty directory created by a shell brace-expansion attempt
+\{Controls,Pages,Models,Resources/
+# IDE
+.vs/
+.idea/
+*.user
+*.suo
+# OS
+.DS_Store
+Thumbs.db

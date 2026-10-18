@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xaml-comp compile="true" ?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+	<Style TargetType="Label">
+		<Setter Property="FontFamily" Value="DMSans" />
+		<Setter Property="TextColor" Value="{StaticResource Ink}" />
+		<Setter Property="FontSize" Value="14" />
+	</Style>
+
+	<!-- Small uppercase green label above titles (.eyebrow) -->
+	<Style x:Key="Eyebrow" TargetType="Label">
+		<Setter Property="FontFamily" Value="DMSansBold" />
+		<Setter Property="FontSize" Value="11" />
+		<Setter Property="TextColor" Value="{StaticResource Accent}" />
+		<Setter Property="TextTransform" Value="Uppercase" />
+		<Setter Property="CharacterSpacing" Value="1.4" />
+	</Style>
+
+	<!-- Secondary text -->
+	<Style x:Key="Soft" TargetType="Label">
+		<Setter Property="TextColor" Value="{StaticResource InkSoft}" />
+	</Style>
+
+	<!-- Headings use the Manrope display font -->
+	<Style x:Key="Display" TargetType="Label">
+		<Setter Property="FontFamily" Value="ManropeBold" />
+	</Style>
+
+	<Style x:Key="LinkLabel" TargetType="Label">
+		<Setter Property="FontFamily" Value="DMSansBold" />
+		<Setter Property="FontSize" Value="12" />
+		<Setter Property="TextColor" Value="{StaticResource Accent}" />
+	</Style>
+</ResourceDictionary>
