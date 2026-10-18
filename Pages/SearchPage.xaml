@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<c:MobiloPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:c="clr-namespace:MobiloApp.Controls"
+              x:Class="MobiloApp.Pages.SearchPage">
+	<Grid RowDefinitions="Auto,*,Auto">
+
+		<!-- sticky header -->
+		<VerticalStackLayout Grid.Row="0" BackgroundColor="{StaticResource Cream}">
+			<c:AppHeader Title="Find a vehicle" ShowBack="True" RightIcon="menu" BackClicked="OnBack" />
+			<c:SearchBox Compact="True" />
+			<ScrollView Orientation="Horizontal" HorizontalScrollBarVisibility="Never" Margin="0,0,0,15">
+				<HorizontalStackLayout x:Name="Filters" Spacing="8" Padding="22,0" />
+			</ScrollView>
+			<BoxView HeightRequest="1" Color="{StaticResource Line}" />
+		</VerticalStackLayout>
+
+		<ScrollView Grid.Row="1" VerticalScrollBarVisibility="Never">
+			<VerticalStackLayout Padding="22,18,22,30">
+				<Grid ColumnDefinitions="*,Auto" Margin="0,0,0,15">
+					<Label FontSize="12" TextColor="{StaticResource InkSoft}">
+						<Label.FormattedText>
+							<FormattedString>
+								<Span Text="24 vehicles" FontFamily="DMSansBold" TextColor="{StaticResource Ink}" />
+								<Span Text=" near Austin" />
+							</FormattedString>
+						</Label.FormattedText>
+					</Label>
+					<HorizontalStackLayout Grid.Column="1" Spacing="3">
+						<Label Text="Recommended" FontSize="11" VerticalOptions="Center" />
+						<c:IconView Icon="chevron" IconSize="14" />
+					</HorizontalStackLayout>
+				</Grid>
+
+				<VerticalStackLayout Spacing="14" BindableLayout.ItemsSource="{Binding Vehicles}">
+					<BindableLayout.ItemTemplate>
+						<DataTemplate>
+							<c:VehicleCard Vehicle="{Binding .}" Wide="True" ViewClicked="OnViewCar" />
+						</DataTemplate>
+					</BindableLayout.ItemTemplate>
+				</VerticalStackLayout>
+
+				<!-- "loading more" dots -->
+				<HorizontalStackLayout HorizontalOptions="Center" Spacing="5" Padding="0,28">
+					<Ellipse WidthRequest="6" HeightRequest="6" Fill="{StaticResource LineDark}" />
+					<Ellipse WidthRequest="6" HeightRequest="6" Fill="{StaticResource LineDark}" />
+					<Ellipse WidthRequest="6" HeightRequest="6" Fill="{StaticResource LineDark}" />
+				</HorizontalStackLayout>
+			</VerticalStackLayout>
+		</ScrollView>
+
+		<c:BottomNav Grid.Row="2" Active="search" />
+	</Grid>
+</c:MobiloPage>

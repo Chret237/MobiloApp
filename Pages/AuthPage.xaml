@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<c:MobiloPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:c="clr-namespace:MobiloApp.Controls"
+              x:Class="MobiloApp.Pages.AuthPage">
+	<ScrollView>
+		<Grid>
+			<Ellipse WidthRequest="260" HeightRequest="260" Margin="0,-140,-140,0" Fill="{StaticResource Mint}"
+			         HorizontalOptions="End" VerticalOptions="Start" InputTransparent="True" />
+
+			<VerticalStackLayout Padding="22,26,22,40">
+				<Grid ColumnDefinitions="*,Auto">
+					<c:Logo />
+					<HorizontalStackLayout Grid.Column="1" Spacing="5" VerticalOptions="Center">
+						<c:IconView Icon="shield" IconSize="16" Color="{StaticResource InkSoft}" />
+						<Label Text="Secure access" FontSize="12" TextColor="{StaticResource InkSoft}" VerticalOptions="Center" />
+					</HorizontalStackLayout>
+				</Grid>
+
+				<VerticalStackLayout Margin="0,55,0,0" Spacing="12">
+					<Label x:Name="EyebrowLabel" Style="{StaticResource Eyebrow}" />
+					<Label x:Name="TitleLabel" FontFamily="ManropeBold" FontSize="34" CharacterSpacing="-1.9" LineHeight="1.1" />
+					<Label x:Name="SubtitleLabel" TextColor="{StaticResource InkSoft}" LineHeight="1.35" />
+				</VerticalStackLayout>
+
+				<VerticalStackLayout Margin="0,30,0,0" Spacing="16">
+					<c:Field x:Name="NameField" Label="Full name" Placeholder="Alex Morgan" Icon="user" />
+					<c:Field Label="Email address" Placeholder="you@example.com" KeyboardType="email" />
+					<c:Field x:Name="PhoneField" Label="Phone number" Placeholder="+1 555 000 0000" Icon="phone" KeyboardType="phone" />
+					<c:Field Label="Password" Placeholder="At least 8 characters" Icon="lock" IsPassword="True" />
+					<c:Field x:Name="ConfirmField" Label="Confirm password" Placeholder="Repeat your password" Icon="lock" IsPassword="True" />
+
+					<Label x:Name="ForgotLabel" Text="Forgot password?" FontFamily="DMSansBold" FontSize="13"
+					       TextColor="{StaticResource Forest}" HorizontalOptions="End" Margin="0,-6,0,0" />
+
+					<HorizontalStackLayout x:Name="TermsRow" Spacing="6">
+						<CheckBox Color="{StaticResource Forest}" VerticalOptions="Start" Margin="-6,-6,0,0" />
+						<Label Text="I agree to the Terms of Service and Privacy Policy." FontSize="12"
+						       TextColor="{StaticResource InkSoft}" VerticalOptions="Center" />
+					</HorizontalStackLayout>
+
+					<c:PrimaryButton x:Name="SubmitButton" Icon="arrow" Clicked="OnSubmit" />
+				</VerticalStackLayout>
+
+				<HorizontalStackLayout Margin="0,24,0,0" HorizontalOptions="Center" Spacing="6">
+					<Label x:Name="SwitchPrompt" FontSize="13" VerticalOptions="Center" />
+					<Label x:Name="SwitchAction" FontFamily="DMSansBold" FontSize="13" TextColor="{StaticResource Forest}" VerticalOptions="Center">
+						<Label.GestureRecognizers><TapGestureRecognizer Tapped="OnSwitch" /></Label.GestureRecognizers>
+					</Label>
+				</HorizontalStackLayout>
+			</VerticalStackLayout>
+		</Grid>
+	</ScrollView>
+</c:MobiloPage>

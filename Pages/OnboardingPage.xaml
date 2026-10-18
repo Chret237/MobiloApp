@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<c:MobiloPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:c="clr-namespace:MobiloApp.Controls"
+              x:Class="MobiloApp.Pages.OnboardingPage"
+              BackgroundColor="White">
+	<Grid RowDefinitions="57*,43*" RowSpacing="0">
+
+		<!-- hero photo + gradient fade + top bar -->
+		<Grid Grid.Row="0">
+			<Image x:Name="HeroImage" Aspect="AspectFill" />
+			<BoxView>
+				<BoxView.Background>
+					<LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+						<GradientStop Color="#3304140F" Offset="0" />
+						<GradientStop Color="#0004140F" Offset="0.45" />
+						<GradientStop Color="White" Offset="1" />
+					</LinearGradientBrush>
+				</BoxView.Background>
+			</BoxView>
+		</Grid>
+
+		<Grid Grid.Row="0" Padding="24,25" VerticalOptions="Start" ColumnDefinitions="*,Auto">
+			<c:Logo Light="True" />
+			<Border Grid.Column="1" Padding="16,9" StrokeShape="RoundRectangle 999" Stroke="#40FFFFFF"
+			        StrokeThickness="1" BackgroundColor="#26FFFFFF">
+				<Label Text="Skip" FontFamily="DMSansSemiBold" TextColor="White" />
+				<Border.GestureRecognizers><TapGestureRecognizer Tapped="OnSkip" /></Border.GestureRecognizers>
+			</Border>
+		</Grid>
+
+		<!-- copy -->
+		<VerticalStackLayout Grid.Row="1" BackgroundColor="White" Padding="28,12,28,30" Margin="0,-25,0,0" Spacing="12">
+			<Label x:Name="EyebrowLabel" Style="{StaticResource Eyebrow}" />
+			<Label x:Name="TitleLabel" FontFamily="ManropeBold" FontSize="32" CharacterSpacing="-1.8" LineHeight="1.08" />
+			<Label x:Name="BodyLabel" FontSize="15" LineHeight="1.4" TextColor="{StaticResource InkSoft}" />
+		</VerticalStackLayout>
+
+		<Grid Grid.Row="1" VerticalOptions="End" Padding="28,0,28,30" ColumnDefinitions="*,Auto">
+			<HorizontalStackLayout x:Name="Dots" Spacing="7" VerticalOptions="Center" />
+			<Border Grid.Column="1" WidthRequest="58" HeightRequest="58" StrokeShape="Ellipse" StrokeThickness="0"
+			        BackgroundColor="{StaticResource Forest}">
+				<c:IconView Icon="arrow" Color="White" />
+				<Border.GestureRecognizers><TapGestureRecognizer Tapped="OnNext" /></Border.GestureRecognizers>
+			</Border>
+		</Grid>
+	</Grid>
+</c:MobiloPage>

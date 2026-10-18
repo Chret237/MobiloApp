@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<c:MobiloPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:c="clr-namespace:MobiloApp.Controls"
+              x:Class="MobiloApp.Pages.SplashPage"
+              BackgroundColor="{StaticResource ForestDeep}">
+	<Grid>
+		<!-- soft green glow (.splash__glow) -->
+		<Ellipse WidthRequest="600" HeightRequest="600" Margin="-170,-210,0,0"
+		         HorizontalOptions="Start" VerticalOptions="Start" InputTransparent="True">
+			<Ellipse.Fill>
+				<RadialGradientBrush Center="0.5,0.5" Radius="0.5">
+					<GradientStop Color="#4275DBB1" Offset="0" />
+					<GradientStop Color="#0075DBB1" Offset="0.68" />
+				</RadialGradientBrush>
+			</Ellipse.Fill>
+		</Ellipse>
+
+		<VerticalStackLayout Padding="42" VerticalOptions="Center">
+			<c:Logo Light="True" />
+			<Label Margin="0,50,0,22" FontFamily="ManropeExtraBold" FontSize="56" CharacterSpacing="-3"
+			       LineHeight="0.98" TextColor="White" Text="Your Journey,&#10;Simplified." />
+			<Label FontSize="15" CharacterSpacing="0.3" TextColor="#A6FFFFFF" Text="Move freely. Arrive confidently." />
+		</VerticalStackLayout>
+
+		<!-- loading bar -->
+		<Border x:Name="LoaderTrack" VerticalOptions="End" Margin="42,0,42,52" HeightRequest="3"
+		        StrokeThickness="0" BackgroundColor="#29FFFFFF">
+			<BoxView x:Name="LoaderFill" Color="{StaticResource MintBright}" HorizontalOptions="Start" WidthRequest="0" />
+		</Border>
+	</Grid>
+</c:MobiloPage>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<c:MobiloPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:c="clr-namespace:MobiloApp.Controls"
+              x:Class="MobiloApp.Pages.HomePage">
+	<Grid RowDefinitions="*,Auto">
+		<ScrollView Grid.Row="0" VerticalScrollBarVisibility="Never">
+			<VerticalStackLayout Spacing="0" Padding="0,0,0,24">
+
+				<!-- dark hero -->
+				<Border BackgroundColor="{StaticResource ForestDeep}" StrokeThickness="0" Padding="0,0,0,22"
+				        StrokeShape="RoundRectangle 0,0,32,32">
+					<VerticalStackLayout>
+						<c:AppHeader x:Name="Header" Dark="True" Subtitle="Good morning, Alex" Title="Where are you going?"
+						             RightIcon="bell" RightClicked="OnBell" />
+						<c:SearchBox Tapped="OnSearch" />
+						<HorizontalStackLayout Spacing="18" Padding="24,0">
+							<HorizontalStackLayout Spacing="5">
+								<c:IconView Icon="shield" IconSize="16" Color="#ADFFFFFF" />
+								<Label Text="Verified vehicles" FontSize="11" TextColor="#ADFFFFFF" VerticalOptions="Center" />
+							</HorizontalStackLayout>
+							<HorizontalStackLayout Spacing="5">
+								<c:IconView Icon="card" IconSize="16" Color="#ADFFFFFF" />
+								<Label Text="No hidden fees" FontSize="11" TextColor="#ADFFFFFF" VerticalOptions="Center" />
+							</HorizontalStackLayout>
+						</HorizontalStackLayout>
+					</VerticalStackLayout>
+				</Border>
+
+				<!-- categories -->
+				<VerticalStackLayout Padding="22,28,22,0" Spacing="16">
+					<VerticalStackLayout Spacing="3">
+						<Label Text="Browse by style" Style="{StaticResource Eyebrow}" />
+						<Label Text="Choose your ride" FontFamily="ManropeBold" FontSize="21" CharacterSpacing="-0.7" />
+					</VerticalStackLayout>
+					<Grid x:Name="Categories" ColumnSpacing="10" ColumnDefinitions="*,*,*,*" />
+				</VerticalStackLayout>
+
+				<!-- nearby vehicles -->
+				<VerticalStackLayout Padding="22,28,0,0" Spacing="16">
+					<Grid ColumnDefinitions="*,Auto" Padding="0,0,22,0">
+						<VerticalStackLayout Spacing="3">
+							<Label Text="Available today" Style="{StaticResource Eyebrow}" />
+							<Label Text="Nearby vehicles" FontFamily="ManropeBold" FontSize="21" CharacterSpacing="-0.7" />
+						</VerticalStackLayout>
+						<Label Grid.Column="1" Text="See all" Style="{StaticResource LinkLabel}" VerticalOptions="End">
+							<Label.GestureRecognizers><TapGestureRecognizer Tapped="OnSeeAll" /></Label.GestureRecognizers>
+						</Label>
+					</Grid>
+					<ScrollView Orientation="Horizontal" HorizontalScrollBarVisibility="Never">
+						<HorizontalStackLayout Spacing="14" Padding="0,0,22,12"
+						                       BindableLayout.ItemsSource="{Binding Vehicles}">
+							<BindableLayout.ItemTemplate>
+								<DataTemplate>
+									<c:VehicleCard Vehicle="{Binding .}" ViewClicked="OnViewCar" />
+								</DataTemplate>
+							</BindableLayout.ItemTemplate>
+						</HorizontalStackLayout>
+					</ScrollView>
+				</VerticalStackLayout>
+			</VerticalStackLayout>
+		</ScrollView>
+
+		<c:BottomNav Grid.Row="1" Active="home" />
+
+		<!-- toast shown by the bell button -->
+		<Border x:Name="Toast" Grid.Row="0" IsVisible="False" WidthRequest="330" HorizontalOptions="Center" VerticalOptions="End"
+		        Margin="0,0,0,16" Padding="14,9,10,9" BackgroundColor="{StaticResource ForestDeep}" StrokeThickness="0"
+		        StrokeShape="RoundRectangle 12">
+			<Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="9">
+				<c:IconView Icon="bell" IconSize="18" Color="White" />
+				<Label Grid.Column="1" Text="You’re all caught up." FontSize="12" TextColor="White" VerticalOptions="Center" />
+				<c:IconButton Grid.Column="2" Icon="close" Glass="True" ButtonSize="30" Clicked="OnDismissToast" />
+			</Grid>
+		</Border>
+	</Grid>
+</c:MobiloPage>

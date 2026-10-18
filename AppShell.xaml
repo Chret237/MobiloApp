@@ -7,5 +7,12 @@
        Shell.NavBarIsVisible="False"
        Shell.TabBarIsVisible="False">
 
-	<!-- Phase A starts with an empty shell; feature routes are added in later phases. -->
+	<!-- Every screen of the Figma flow is one route. Navigate with GoToAsync("//route"). -->
+	<ShellContent Route="splash"     ContentTemplate="{DataTemplate pages:SplashPage}" />
+	<ShellContent Route="onboarding" ContentTemplate="{DataTemplate pages:OnboardingPage}" />
+	<ShellContent Route="login"      ContentTemplate="{DataTemplate pages:LoginPage}" />
+	<ShellContent Route="register"   ContentTemplate="{DataTemplate pages:RegisterPage}" />
+	<ShellContent Route="home"       ContentTemplate="{DataTemplate pages:HomePage}" />
+	<ShellContent Route="search"     ContentTemplate="{DataTemplate pages:SearchPage}" />
+	<ShellContent Route="details"    ContentTemplate="{DataTemplate pages:DetailsPage}" />
 </Shell>
