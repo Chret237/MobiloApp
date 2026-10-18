@@ -18,4 +18,7 @@
 	<ShellContent Route="booking"    ContentTemplate="{DataTemplate pages:BookingPage}" />
 	<ShellContent Route="payment"    ContentTemplate="{DataTemplate pages:PaymentPage}" />
 	<ShellContent Route="success"    ContentTemplate="{DataTemplate pages:SuccessPage}" />
+	<ShellContent Route="bookings"   ContentTemplate="{DataTemplate pages:BookingsPage}" />
+	<ShellContent Route="favorites"  ContentTemplate="{DataTemplate pages:FavoritesPage}" />
+	<ShellContent Route="profile"    ContentTemplate="{DataTemplate pages:ProfilePage}" />
 </Shell>
