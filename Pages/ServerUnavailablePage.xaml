@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<c:MobiloPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+              xmlns:c="clr-namespace:MobiloApp.Controls"
+              x:Class="MobiloApp.Pages.ServerUnavailablePage">
+    <Grid Padding="24,28,24,35" RowDefinitions="Auto,*,Auto">
+        <c:Logo />
+
+        <VerticalStackLayout Grid.Row="1"
+                             VerticalOptions="Center"
+                             HorizontalOptions="Center"
+                             MaximumWidthRequest="360"
+                             Spacing="14">
+            <Border WidthRequest="82"
+                    HeightRequest="82"
+                    HorizontalOptions="Center"
+                    StrokeShape="Ellipse"
+                    StrokeThickness="0"
+                    BackgroundColor="{StaticResource Mint}">
+                <c:IconView Icon="shield" IconSize="34" Color="{StaticResource Forest}" />
+            </Border>
+            <Label Text="Service temporarily unavailable"
+                   FontFamily="ManropeBold"
+                   FontSize="28"
+                   CharacterSpacing="-1.2"
+                   HorizontalTextAlignment="Center" />
+            <Label Text="We can't reach MOBILO right now. Check your connection or try again in a moment. Your account and bookings are safe."
+                   FontSize="14"
+                   LineHeight="1.4"
+                   TextColor="{StaticResource InkSoft}"
+                   HorizontalTextAlignment="Center" />
+        </VerticalStackLayout>
+
+        <VerticalStackLayout Grid.Row="2" Spacing="12">
+            <c:PrimaryButton Text="Try again" Icon="arrow" Clicked="OnRetry" />
+            <Label Text="You can come back later."
+                   FontFamily="DMSansBold"
+                   FontSize="12"
+                   TextColor="{StaticResource Forest}"
+                   HorizontalOptions="Center" />
+        </VerticalStackLayout>
+    </Grid>
+</c:MobiloPage>

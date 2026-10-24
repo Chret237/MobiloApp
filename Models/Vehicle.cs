@@ -2,11 +2,12 @@ namespace MobiloApp.Models;
 
 public class Vehicle
 {
+	public int Id { get; init; }
 	public string Name { get; init; } = "";
 	public string Type { get; init; } = "";
 	public string Rating { get; init; } = "";
 	public int Reviews { get; init; }
-	public int Price { get; init; }
+	public decimal Price { get; init; }
 	public string Image { get; init; } = "";
 }
 

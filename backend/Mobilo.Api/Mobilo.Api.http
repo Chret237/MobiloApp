@@ -1,0 +1,19 @@
+@MobiloApi_HostAddress = http://localhost:5080
+
+GET {{MobiloApi_HostAddress}}/
+
+###
+
+GET {{MobiloApi_HostAddress}}/api/vehicles?page=1&pageSize=2
+
+###
+
+GET {{MobiloApi_HostAddress}}/api/vehicles?category=Luxury
+
+###
+
+GET {{MobiloApi_HostAddress}}/api/vehicles/1
+
+###
+
+GET {{MobiloApi_HostAddress}}/api/vehicles/999

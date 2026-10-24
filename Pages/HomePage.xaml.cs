@@ -1,19 +1,43 @@
 using Microsoft.Maui.Controls.Shapes;
+using System.Collections.ObjectModel;
+using Microsoft.Extensions.DependencyInjection;
 using MobiloApp.Controls;
 using MobiloApp.Models;
+using MobiloApp.Services;
 
 namespace MobiloApp.Pages;
 
 public partial class HomePage : MobiloPage
 {
-	public IEnumerable<Vehicle> Vehicles => Sample.Vehicles.Take(2);
+	public ObservableCollection<Vehicle> Vehicles { get; } = new();
+	readonly VehicleApi _vehicleApi;
 
 	public HomePage()
 	{
 		InitializeComponent();
+		_vehicleApi = AppServices.Current.GetRequiredService<VehicleApi>();
 		BackgroundColor = Theme.Cream;
 		BindingContext = this;
 		BuildCategories();
+	}
+
+	protected override async void OnAppearing()
+	{
+		base.OnAppearing();
+		try
+		{
+			var vehicles = await _vehicleApi.GetVehiclesAsync();
+			Vehicles.Clear();
+			foreach (var vehicle in vehicles.Take(2))
+				Vehicles.Add(vehicle);
+		}
+		catch (ApiUnavailableException)
+		{
+			await Nav.Go("server-unavailable", new Dictionary<string, object>
+			{
+				["retryRoute"] = "home"
+			});
+		}
 	}
 
 	/// <summary>The 4 "Choose your ride" tiles (first one is the active one in the design).</summary>
@@ -27,11 +51,14 @@ public partial class HomePage : MobiloPage
 			var tile = new Border
 			{
 				StrokeShape = new RoundRectangle { CornerRadius = new CornerRadius(Theme.RadiusSm) },
-				StrokeThickness = 1, Stroke = active ? Colors.Transparent : Theme.Line,
-				BackgroundColor = active ? Theme.Mint : Theme.Paper, Padding = new Thickness(4, 12),
+				StrokeThickness = 1,
+				Stroke = active ? Colors.Transparent : Theme.Line,
+				BackgroundColor = active ? Theme.Mint : Theme.Paper,
+				Padding = new Thickness(4, 12),
 				Content = new VerticalStackLayout
 				{
-					Spacing = 8, HorizontalOptions = LayoutOptions.Center,
+					Spacing = 8,
+					HorizontalOptions = LayoutOptions.Center,
 					Children =
 					{
 						new Border

@@ -1,19 +1,51 @@
 using Microsoft.Maui.Controls.Shapes;
+using System.Collections.ObjectModel;
+using Microsoft.Extensions.DependencyInjection;
 using MobiloApp.Controls;
 using MobiloApp.Models;
+using MobiloApp.Services;
 
 namespace MobiloApp.Pages;
 
 public partial class SearchPage : MobiloPage
 {
-	public List<Vehicle> Vehicles => Sample.Vehicles;
+	public ObservableCollection<Vehicle> Vehicles { get; } = new();
+	readonly VehicleApi _vehicleApi;
 	string _category = "All";
 
 	public SearchPage()
 	{
 		InitializeComponent();
+		_vehicleApi = AppServices.Current.GetRequiredService<VehicleApi>();
 		BindingContext = this;
 		BuildFilters();
+	}
+
+	protected override async void OnAppearing()
+	{
+		base.OnAppearing();
+		await LoadVehiclesAsync();
+	}
+
+	async Task LoadVehiclesAsync()
+	{
+		try
+		{
+			var category = _category is "All" or "Under $100" ? null : _category;
+			var maxPrice = _category == "Under $100" ? 100m : (decimal?)null;
+			var vehicles = await _vehicleApi.GetVehiclesAsync(category: category, maxPrice: maxPrice);
+			Vehicles.Clear();
+			foreach (var vehicle in vehicles)
+				Vehicles.Add(vehicle);
+			VehicleCountText.Text = $"{Vehicles.Count} vehicles near Austin";
+		}
+		catch (ApiUnavailableException)
+		{
+			await Nav.Go("server-unavailable", new Dictionary<string, object>
+			{
+				["retryRoute"] = "search"
+			});
+		}
 	}
 
 	/// <summary>Filter chips: All (with filter icon), SUV, Luxury, Under $100.</summary>
@@ -30,13 +62,16 @@ public partial class SearchPage : MobiloPage
 
 			var chip = new Border
 			{
-				StrokeShape = new RoundRectangle { CornerRadius = new CornerRadius(999) }, StrokeThickness = 1,
-				Stroke = active ? Theme.Forest : Theme.Line, BackgroundColor = active ? Theme.Forest : Colors.White,
-				Padding = new Thickness(13, 8), Content = row
+				StrokeShape = new RoundRectangle { CornerRadius = new CornerRadius(999) },
+				StrokeThickness = 1,
+				Stroke = active ? Theme.Forest : Theme.Line,
+				BackgroundColor = active ? Theme.Forest : Colors.White,
+				Padding = new Thickness(13, 8),
+				Content = row
 			};
 			var tap = new TapGestureRecognizer();
 			var captured = item;
-			tap.Tapped += (_, _) => { _category = captured; BuildFilters(); };
+			tap.Tapped += async (_, _) => { _category = captured; BuildFilters(); await LoadVehiclesAsync(); };
 			chip.GestureRecognizers.Add(tap);
 			Filters.Children.Add(chip);
 		}

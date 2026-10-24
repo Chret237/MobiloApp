@@ -1,0 +1,5 @@
+bin/
+obj/
+mobilo.db
+mobilo.db-shm
+mobilo.db-wal

@@ -23,10 +23,11 @@
 
 				<VerticalStackLayout Margin="0,30,0,0" Spacing="16">
 					<c:Field x:Name="NameField" Label="Full name" Placeholder="Alex Morgan" Icon="user" />
-					<c:Field Label="Email address" Placeholder="you@example.com" KeyboardType="email" />
+					<c:Field x:Name="EmailField" Label="Email address" Placeholder="you@example.com" KeyboardType="email" />
 					<c:Field x:Name="PhoneField" Label="Phone number" Placeholder="+1 555 000 0000" Icon="phone" KeyboardType="phone" />
-					<c:Field Label="Password" Placeholder="At least 8 characters" Icon="lock" IsPassword="True" />
+					<c:Field x:Name="PasswordField" Label="Password" Placeholder="At least 8 characters" Icon="lock" IsPassword="True" />
 					<c:Field x:Name="ConfirmField" Label="Confirm password" Placeholder="Repeat your password" Icon="lock" IsPassword="True" />
+					<Label x:Name="ErrorLabel" IsVisible="False" FontSize="12" TextColor="#B33A3A" LineHeight="1.3" />
 
 					<Label x:Name="ForgotLabel" Text="Forgot password?" FontFamily="DMSansBold" FontSize="13"
 					       TextColor="{StaticResource Forest}" HorizontalOptions="End" Margin="0,-6,0,0" />

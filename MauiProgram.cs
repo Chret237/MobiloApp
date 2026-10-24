@@ -1,5 +1,6 @@
 using Microsoft.Extensions.Logging;
 using Microsoft.Maui.Handlers;
+using MobiloApp.Services;
 
 namespace MobiloApp;
 
@@ -10,6 +11,15 @@ public static class MauiProgram
 		var builder = MauiApp.CreateBuilder();
 		builder
 			.UseMauiApp<App>()
+			.Services.AddSingleton(new HttpClient
+			{
+				BaseAddress = ApiConfiguration.BaseUri,
+				Timeout = TimeSpan.FromSeconds(10)
+			});
+
+		builder.Services.AddSingleton<VehicleApi>();
+		builder.Services.AddSingleton<AuthService>();
+		builder
 			.ConfigureFonts(fonts =>
 			{
 				// Manrope = display font (headings, logo, prices). DM Sans = body font.
@@ -36,6 +46,8 @@ public static class MauiProgram
 #if DEBUG
 		builder.Logging.AddDebug();
 #endif
-		return builder.Build();
+		var app = builder.Build();
+		AppServices.Current = app.Services;
+		return app;
 	}
 }

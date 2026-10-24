@@ -37,6 +37,8 @@ public static class Theme
 public static class Nav
 {
 	public static Task Go(string route) => Shell.Current.GoToAsync("//" + route);
+	public static Task Go(string route, IDictionary<string, object> parameters) =>
+		Shell.Current.GoToAsync("//" + route, parameters);
 }
 
 /// <summary>Booking data shared between the booking, payment and success screens.</summary>

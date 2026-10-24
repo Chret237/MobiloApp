@@ -19,7 +19,7 @@
 					<Label FontSize="12" TextColor="{StaticResource InkSoft}">
 						<Label.FormattedText>
 							<FormattedString>
-								<Span Text="24 vehicles" FontFamily="DMSansBold" TextColor="{StaticResource Ink}" />
+								<Span x:Name="VehicleCountText" Text="Loading vehicles" FontFamily="DMSansBold" TextColor="{StaticResource Ink}" />
 								<Span Text=" near Austin" />
 							</FormattedString>
 						</Label.FormattedText>

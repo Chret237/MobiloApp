@@ -14,6 +14,7 @@
 	<ShellContent Route="register"   ContentTemplate="{DataTemplate pages:RegisterPage}" />
 	<ShellContent Route="home"       ContentTemplate="{DataTemplate pages:HomePage}" />
 	<ShellContent Route="search"     ContentTemplate="{DataTemplate pages:SearchPage}" />
+	<ShellContent Route="server-unavailable" ContentTemplate="{DataTemplate pages:ServerUnavailablePage}" />
 	<ShellContent Route="details"    ContentTemplate="{DataTemplate pages:DetailsPage}" />
 	<ShellContent Route="booking"    ContentTemplate="{DataTemplate pages:BookingPage}" />
 	<ShellContent Route="payment"    ContentTemplate="{DataTemplate pages:PaymentPage}" />

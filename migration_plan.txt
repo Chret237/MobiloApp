@@ -1,0 +1,320 @@
+Liste de tâches à faire mise à jour
+
+Je vais transformer la demande en plan de migration des parcours, en distinguant les écrans déjà reliés au catalogue de ceux qui sont encore purement simulés : auth, détails, réservation, paiement, favoris, bookings et profil. Je vérifie l’état du plan de session et les contrats backend actuels pour que le découpage couvre réellement tout le flux de l’application.
+
+Read 
+
+Read memory 
+
+Read 
+
+Search complete: Cartographier les workflows actuels
+
+Searched codebase for "MobiloApp état actuel après branchement catalogue plan remplacement workflows par défaut", 20 results
+
+Searched codebase for "parcours simulés côté MAUI endpoints backend disponibles auth navigation détail véhicule booking paiement success bookings favoris profil", 19 results
+
+Searched for files matching `**/*Catalogue*.cs`, no matches
+
+Searched for files matching `**/AppShell.xaml`, 1 match
+
+Searched for files matching `**/Services/**`, 4 matches
+
+Searched for files matching `**/Domain/**/*.cs`, 1 match
+
+Searched for files matching `**/backend/**`, 13 matches
+
+Searched for files matching `**/README.md`, 2 matches
+
+Searched for text `Catalogue`, 7 results
+
+Searched for regex `workflow|workflow.*default|simulé|simulation`, 1 result
+
+Searched for files matching `**/AppShell.xaml`, 1 match
+
+Read 
+
+Searched for files matching `**/VehicleApi.cs`, 1 match
+
+Searched for files matching `**/Vehicle.cs`, 2 matches
+
+Searched for files matching `**/BookingPage.xaml.cs`, 1 match
+
+Searched for files matching `**/PaymentPage.xaml.cs`, 1 match
+
+Searched for files matching `**/DetailsPage.xaml.cs`, 1 match
+
+Searched for files matching `**/UtilityPage.xaml.cs`, 1 match
+
+Searched for files matching `**/AuthPage.xaml.cs`, 1 match
+
+Searched for files matching `**/SearchPage.xaml.cs`, 1 match
+
+Searched for files matching `**/SuccessPage.xaml.cs`, 1 match
+
+Searched for files matching `**/HomePage.xaml.cs`, 1 match
+
+Searched for files matching `**/OnboardingPage.xaml.cs`, 1 match
+
+Searched for files matching `**/backend/Mobilo.Api/README.md`, 1 match
+
+Searched for files matching `**/backend/Mobilo.Api/Features/Vehicles/VehicleEndpoints.cs`, 1 match
+
+Searched for files matching `**/backend/Mobilo.Api/Features/Vehicles/VehicleContracts.cs`, 1 match
+
+Searched for files matching `**/backend/Mobilo.Api/Data/MobiloDbContext.cs`, 1 match
+
+Searched for files matching `**/backend/Mobilo.Api/Program.cs`, 1 match
+
+Searched for regex `workflow|workflow.*default|simulé|simulation`, 1 result
+
+Read 
+
+Read 
+
+Read 
+
+Read 
+
+Read 
+
+Read 
+
+Read 
+
+Read 
+
+Read 
+
+Read 
+
+## Objectif
+
+Remplacer les transitions simulées par un parcours complet :
+
+```text
+Onboarding
+→ Register/Login
+→ Home/Search
+→ Vehicle details
+→ Booking quote
+→ Payment simulé
+→ Booking confirmed
+→ Bookings/Favorites/Profile
+```
+
+Aujourd’hui, seul le catalogue véhicule est réellement connecté. Les autres écrans utilisent encore `Sample`, `BookingState` ou une navigation directe.
+
+## Phase 1 : Socle partagé
+
+Créer côté backend :
+
+- `User`
+- `Favorite`
+- `Booking`
+- `PaymentAttempt`
+- statuts `BookingStatus` et `PaymentStatus`
+- migrations SQLite
+- seed uniquement des véhicules
+
+Créer côté MAUI :
+
+- `AuthService`
+- `SessionService`
+- `BookingService`
+- `FavoriteService`
+- `ApiClient`
+- modèles DTO séparés des modèles d’affichage
+
+`AppServices` restera le point d’injection des services.
+
+## Phase 2 : Authentification
+
+Backend :
+
+- `POST /api/auth/register`
+- `POST /api/auth/login`
+- `GET /api/me`
+
+Règles :
+
+- hash sécurisé des mots de passe
+- JWT avec expiration
+- email unique
+- validation du nom, email et mot de passe
+- erreurs `400`, `401` et `409`
+
+MAUI :
+
+- remplacer `AuthPage.OnSubmit` dans `AuthPage.xaml.cs`
+- stocker le JWT avec `SecureStorage`
+- restaurer la session au démarrage
+- ajouter un handler `401` qui efface la session et retourne vers Login
+- ne plus naviguer automatiquement vers Home si l’authentification échoue
+
+## Phase 3 : Catalogue et détail
+
+Modifier :
+
+- `HomePage.xaml.cs`
+- `SearchPage.xaml.cs`
+- `DetailsPage.xaml.cs`
+
+Le véhicule sélectionné doit être transmis avec son `Id` :
+
+```text
+VehicleCard
+→ DetailsPage(vehicleId)
+→ GET /api/vehicles/{id}
+```
+
+Supprimer progressivement les dépendances à :
+
+- `Sample.RangeImage`
+- `Sample.Vehicles`
+- les informations véhicule codées dans le XAML
+
+Le détail doit afficher les valeurs backend : image, nom, type, prix, note, sièges, bagages, boîte de vitesse et localisation.
+
+## Phase 4 : Devis et réservation
+
+Backend :
+
+- `POST /api/bookings/quote`
+- `POST /api/bookings`
+- `GET /api/bookings`
+- `GET /api/bookings/{id}`
+
+Le serveur doit calculer :
+
+- durée
+- prix journalier
+- assurance
+- taxes
+- frais de service
+- dépôt
+- total final
+
+Le client ne doit jamais envoyer un total considéré comme fiable.
+
+MAUI :
+
+- remplacer `BookingState` dans `Theme.cs`
+- créer un `CheckoutState`
+- relier `BookingPage.xaml.cs` au endpoint de devis
+- afficher les erreurs de dates et d’indisponibilité
+- transmettre `vehicleId`, dates et assurance au paiement
+
+## Phase 5 : Paiement simulé
+
+Backend :
+
+```text
+POST /api/bookings/{id}/payment
+```
+
+Le endpoint doit :
+
+- accepter ou refuser une simulation
+- être idempotent
+- ne jamais stocker le numéro de carte
+- confirmer la réservation uniquement après paiement accepté
+- retourner une référence de réservation
+
+MAUI :
+
+- remplacer `PaymentPage.OnPay` dans `PaymentPage.xaml.cs`
+- ne plus naviguer directement vers Success
+- afficher une erreur de paiement avec retry
+- transmettre les informations de réservation à `SuccessPage.xaml.cs`
+- afficher la vraie référence backend
+
+## Phase 6 : Réservations, favoris et profil
+
+Backend :
+
+- `GET /api/bookings`
+- `GET /api/favorites`
+- `POST /api/favorites/{vehicleId}`
+- `DELETE /api/favorites/{vehicleId}`
+- `GET /api/me`
+
+MAUI :
+
+- remplacer les placeholders de `UtilityPage.xaml.cs`
+- Bookings charge les réservations de l’utilisateur
+- Favorites charge les véhicules sauvegardés
+- Profile charge les données de `/api/me`
+- le bouton cœur appelle le backend
+- afficher des états vides explicites
+
+## Phase 7 : Navigation et états globaux
+
+Ajouter un état clair pour :
+
+```text
+Unauthenticated
+Authenticating
+Authenticated
+Loading
+Ready
+ApiUnavailable
+Unauthorized
+Conflict
+PaymentFailed
+```
+
+Le flux `server-unavailable` déjà ajouté devra être utilisé par tous les services API, pas uniquement Home/Search.
+
+Centraliser :
+
+- timeout
+- erreurs HTTP
+- retry
+- session expirée
+- annulation de requête
+- messages utilisateur
+
+## Phase 8 : Tests
+
+Backend :
+
+- register/login
+- email déjà utilisé
+- JWT invalide ou expiré
+- devis correct
+- dates invalides
+- véhicule indisponible
+- chevauchement de réservation
+- paiement refusé
+- paiement idempotent
+- favoris par utilisateur
+
+MAUI :
+
+- session restaurée
+- catalogue chargé
+- API indisponible
+- retry réussi
+- logout
+- navigation véhicule sélectionné
+- booking confirmé
+- paiement refusé
+
+## Ordre recommandé
+
+1. Authentification et session
+2. Passage du véhicule sélectionné
+3. Détail dynamique
+4. Devis serveur
+5. Création de réservation
+6. Paiement simulé
+7. Historique bookings
+8. Favoris
+9. Profil
+10. Suppression de `Sample` et `BookingState`
+11. Tests du parcours complet
+
+Le point important est de construire chaque étape verticalement : endpoint backend, service MAUI, écran connecté, erreur gérée, puis test du flux avant de passer à l’étape suivante.
+
+4 tâches à faire créées

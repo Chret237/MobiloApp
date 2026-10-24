@@ -67,7 +67,7 @@
 		        StrokeShape="RoundRectangle 12">
 			<Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="9">
 				<c:IconView Icon="bell" IconSize="18" Color="White" />
-				<Label Grid.Column="1" Text="You’re all caught up." FontSize="12" TextColor="White" VerticalOptions="Center" />
+				<Label x:Name="ToastLabel" Grid.Column="1" Text="You’re all caught up." FontSize="12" TextColor="White" VerticalOptions="Center" />
 				<c:IconButton Grid.Column="2" Icon="close" Glass="True" ButtonSize="30" Clicked="OnDismissToast" />
 			</Grid>
 		</Border>
