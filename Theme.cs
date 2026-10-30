@@ -44,6 +44,7 @@ public static class Nav
 /// <summary>Booking data shared between the booking, payment and success screens.</summary>
 public static class BookingState
 {
+	public static int? VehicleId { get; set; }
 	public static bool Insurance { get; set; } = true;
 	public static int Total => Insurance ? 526 : 482;
 }

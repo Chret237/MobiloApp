@@ -81,7 +81,10 @@ public partial class HomePage : MobiloPage
 
 	async void OnSearch(object? sender, EventArgs e) => await Nav.Go("search");
 	async void OnSeeAll(object? sender, TappedEventArgs e) => await Nav.Go("search");
-	async void OnViewCar(object? sender, Vehicle v) => await Nav.Go("details");
+	async void OnViewCar(object? sender, Vehicle v) => await Nav.Go("details", new Dictionary<string, object>
+	{
+		["vehicleId"] = v.Id
+	});
 
 	async void OnBell(object? sender, EventArgs e)
 	{

@@ -31,10 +31,10 @@
 					<Grid ColumnDefinitions="*,Auto">
 						<VerticalStackLayout Spacing="0">
 							<c:Badge Text="Top rated" Mint="True" Margin="0,0,0,9" />
-							<Label Text="Range Rover Velar" FontFamily="ManropeBold" FontSize="27" CharacterSpacing="-1.2" />
-							<Label Text="Luxury SUV · Automatic" FontSize="12" TextColor="{StaticResource InkSoft}" Margin="0,4,0,0" />
+							<Label x:Name="VehicleNameLabel" Text="Loading vehicle..." FontFamily="ManropeBold" FontSize="27" CharacterSpacing="-1.2" />
+							<Label x:Name="VehicleSubtitleLabel" Text="" FontSize="12" TextColor="{StaticResource InkSoft}" Margin="0,4,0,0" />
 						</VerticalStackLayout>
-						<c:RatingView Grid.Column="1" Value="4.9" Count="128" VerticalOptions="Start" />
+						<c:RatingView x:Name="VehicleRating" Grid.Column="1" Value="" Count="0" VerticalOptions="Start" />
 					</Grid>
 
 					<!-- feature grid -->
@@ -43,25 +43,25 @@
 						<Grid ColumnDefinitions="*,1,*,1,*,1,*">
 							<VerticalStackLayout Spacing="4" HorizontalOptions="Center">
 								<c:IconView Icon="user" />
-								<Label Text="5" FontFamily="DMSansBold" FontSize="12" HorizontalOptions="Center" />
+								<Label x:Name="SeatsLabel" Text="-" FontFamily="DMSansBold" FontSize="12" HorizontalOptions="Center" />
 								<Label Text="Seats" FontSize="9" TextColor="{StaticResource InkSoft}" HorizontalOptions="Center" />
 							</VerticalStackLayout>
 							<BoxView Grid.Column="1" WidthRequest="1" Color="{StaticResource Line}" />
 							<VerticalStackLayout Grid.Column="2" Spacing="4" HorizontalOptions="Center">
 								<c:IconView Icon="car" />
-								<Label Text="2" FontFamily="DMSansBold" FontSize="12" HorizontalOptions="Center" />
+									<Label x:Name="BagsLabel" Text="-" FontFamily="DMSansBold" FontSize="12" HorizontalOptions="Center" />
 								<Label Text="Bags" FontSize="9" TextColor="{StaticResource InkSoft}" HorizontalOptions="Center" />
 							</VerticalStackLayout>
 							<BoxView Grid.Column="3" WidthRequest="1" Color="{StaticResource Line}" />
 							<VerticalStackLayout Grid.Column="4" Spacing="4" HorizontalOptions="Center">
 								<c:IconView Icon="menu" />
-								<Label Text="Auto" FontFamily="DMSansBold" FontSize="12" HorizontalOptions="Center" />
+									<Label x:Name="GearboxLabel" Text="-" FontFamily="DMSansBold" FontSize="12" HorizontalOptions="Center" />
 								<Label Text="Gearbox" FontSize="9" TextColor="{StaticResource InkSoft}" HorizontalOptions="Center" />
 							</VerticalStackLayout>
 							<BoxView Grid.Column="5" WidthRequest="1" Color="{StaticResource Line}" />
 							<VerticalStackLayout Grid.Column="6" Spacing="4" HorizontalOptions="Center">
 								<c:IconView Icon="location" />
-								<Label Text="4.2 mi" FontFamily="DMSansBold" FontSize="12" HorizontalOptions="Center" />
+									<Label x:Name="LocationLabel" Text="-" FontFamily="DMSansBold" FontSize="12" HorizontalOptions="Center" />
 								<Label Text="Away" FontSize="9" TextColor="{StaticResource InkSoft}" HorizontalOptions="Center" />
 							</VerticalStackLayout>
 						</Grid>
@@ -120,7 +120,7 @@
 			<Grid ColumnDefinitions="*,1.2*" ColumnSpacing="20" Padding="22,13,22,18">
 				<HorizontalStackLayout Spacing="3" VerticalOptions="Center">
 					<Label Text="From" FontSize="10" TextColor="{StaticResource InkSoft}" VerticalOptions="End" Margin="0,0,0,4" />
-					<Label Text="$128" FontFamily="ManropeBold" FontSize="22" />
+									<Label x:Name="DayPriceLabel" Text="-" FontFamily="ManropeBold" FontSize="22" />
 					<Label Text="/ day" FontSize="10" TextColor="{StaticResource InkSoft}" VerticalOptions="End" Margin="0,0,0,4" />
 				</HorizontalStackLayout>
 				<c:PrimaryButton Grid.Column="1" Text="Book now" Icon="arrow" Clicked="OnBook" />

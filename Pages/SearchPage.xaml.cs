@@ -78,5 +78,8 @@ public partial class SearchPage : MobiloPage
 	}
 
 	async void OnBack(object? sender, EventArgs e) => await Nav.Go("home");
-	async void OnViewCar(object? sender, Vehicle v) => await Nav.Go("details");
+	async void OnViewCar(object? sender, Vehicle v) => await Nav.Go("details", new Dictionary<string, object>
+	{
+		["vehicleId"] = v.Id
+	});
 }

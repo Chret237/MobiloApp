@@ -9,6 +9,10 @@ public class Vehicle
 	public int Reviews { get; init; }
 	public decimal Price { get; init; }
 	public string Image { get; init; } = "";
+	public int Seats { get; init; }
+	public int Bags { get; init; }
+	public string Gearbox { get; init; } = "";
+	public string Location { get; init; } = "";
 }
 
 public class OnboardingSlide

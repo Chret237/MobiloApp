@@ -57,7 +57,8 @@ public sealed class AuthService(HttpClient httpClient)
         }
     }
 
-    void SetToken(string token) {
+    void SetToken(string token)
+    {
         httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
         SecureStorage.Default.SetAsync(TokenKey, token);
     }

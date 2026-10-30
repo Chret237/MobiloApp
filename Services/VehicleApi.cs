@@ -81,6 +81,10 @@ public sealed class VehicleApi(HttpClient httpClient)
             Reviews = ReviewCount,
             Price = PricePerDay,
             Image = ImageUrl,
+            Seats = Seats,
+            Bags = Bags,
+            Gearbox = Gearbox,
+            Location = Location,
         };
     }
 }
